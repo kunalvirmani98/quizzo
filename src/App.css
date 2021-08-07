@@ -13,6 +13,24 @@
   }
 }
 
+.bg-secondary-custom {
+  background-color: #ecf3fa;
+}
+
+.question-box {
+  background-color: #ecf3fa;
+  border: 1px solid rgba(153, 152, 151, 0.5);
+  margin: 20px 0px;
+  padding: 5px;
+}
+
+.body-container {
+  margin: 20px 300px;
+  padding: 10px 20px;
+  border: 1px solid rgba(153, 152, 151, 0.5);
+}
+
+
 .App-header {
   background-color: #282c34;
   min-height: 100vh;

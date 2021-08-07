@@ -6,28 +6,30 @@ export default class InputComponent extends React.Component {
         this.state = {
             name: this.props.name,
             id: this.props.id,
-            isChecked: false,
-            optionVal: this.props.optionVal
         };
-        this.handleToggle = this.handleToggle.bind(this);
     }
 
-    handleToggle(e) {
-        e.preventDefault();
-        if (this.state.isChecked)
-            this.setState({ isChecked: false })
-        else
-            this.setState({ isChecked: true })
-        console.log(this.state.isChecked);
+    componentDidMount() {
+        console.log("ComponentDidMount called");
+    }
+
+    componentDidUpdate() {
+        console.log("ComponentDidUpdate callled");
     }
 
     render() {
         return (
-            <div class="form-check">
-                <input className="form-check-input" type="radio" onChange={this.handleToggle} name={this.state.name} id={this.state.id} defaultChecked={this.state.isChecked} />
+            <div className="form-check">
+                <input className="form-check-input"
+                    type="radio"
+                    value={this.props.optionval}
+                    onChange={this.props.onChange}
+                    name={this.state.name}
+                    id={this.state.id}
+                    checked={this.props.isChecked} />
 
                 <label className="form-check-label" htmlFor="{this.state.name}">
-                    {this.props.optionVal}
+                    {this.props.optionval}
                 </label>
             </div>
         )
