@@ -14,12 +14,14 @@
 }
 
 .bg-secondary-custom {
-  background-color: #ecf3fa;
+  background-color: #f8f8f9;
+}
+
+.box-shadow-custom {
+  box-shadow: 1px 1px 5px #88888854
 }
 
 .question-box {
-  background-color: #ecf3fa;
-  border: 1px solid rgba(153, 152, 151, 0.5);
   margin: 20px 0px;
   padding: 5px;
 }
