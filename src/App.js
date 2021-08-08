@@ -19,7 +19,8 @@ class App extends React.Component {
         }
       ],
       activeRadioVal: null,
-      counter: 1
+      counter: 1,
+      score: 0
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -31,7 +32,19 @@ class App extends React.Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault();
+    const queries = this.state.queries;
+    let counter = this.state.counter;
+    if (counter < queries.length) {
+      const activeradioval = this.state.activeradioval;
+      let score = this.state.score;
 
+      if (activeradioval === queries[counter].ans) {
+        score = score + 50;
+      }
+
+      this.setState({ counter: counter + 1, score: score });
+    }
   }
 
   render() {
@@ -46,14 +59,14 @@ class App extends React.Component {
             <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>Question {this.state.counter} of {queries.length}</h2></div>
             <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>00:12:23</h2></div>
           </div>
-          <div className="question-box box-shadow-custom bg-secondary-custom "><h5>{queries[counter].query}</h5></div>
+          <div className="question-box box-shadow-custom bg-secondary-custom "><h5>{queries[counter - 1].query}</h5></div>
           <br />
           <h6>Please choose one of the following options</h6>
           <hr />
-          <InputComponent name="inputcomponent1" id="id1" optionval="Gaming" isChecked={"Gaming" === activeRadioVal} onChange={this.handleToggle} />
-          <InputComponent name="inputcomponent2" id="id2" optionval="Netflix and chill" isChecked={"Netflix and chill" === activeRadioVal} onChange={this.handleToggle} />
-          <InputComponent name="inputcomponent3" id="id3" optionval="Travelling" isChecked={"Travelling" === activeRadioVal} onChange={this.handleToggle} />
-          <InputComponent name="inputcomponent4" id="id4" optionval="Reading" isChecked={"Reading" === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent1" id="id1" optionval={queries[counter - 1].options[0]} isChecked={queries[counter - 1].options[0] === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent2" id="id2" optionval={queries[counter - 1].options[1]} isChecked={queries[counter - 1].options[1] === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent3" id="id3" optionval={queries[counter - 1].options[2]} isChecked={queries[counter - 1].options[2] === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent4" id="id4" optionval={queries[counter - 1].options[3]} isChecked={queries[counter - 1].options[3] === activeRadioVal} onChange={this.handleToggle} />
           <hr />
           <div className="d-flex justify-content-end"><button class="btn btn-primary submit-btn flex-end" type="submit" onClick={this.handleSubmit}>Submit</button></div>
         </div>
