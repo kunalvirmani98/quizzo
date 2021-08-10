@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import InputComponent from './inputComponent.js';
+import MyReactModal from './reactModal';
 
 class App extends React.Component {
   constructor(props) {
@@ -16,11 +17,12 @@ class App extends React.Component {
           "query": "What is the name of India's National bird?",
           "options": ["Peacock", "Seagull", "Woodpecker", "Owl"],
           "ans": "Peacock"
-        }
+        },
       ],
       activeRadioVal: null,
       counter: 1,
-      score: 0
+      score: 0,
+      showModal: false
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,15 +37,20 @@ class App extends React.Component {
     e.preventDefault();
     const queries = this.state.queries;
     let counter = this.state.counter;
+    const activeradioval = this.state.activeradioval;
+    let score = this.state.score;
+
+    if (counter === queries.length) {
+      this.setState({ counter: counter + 1, score: score, activeRadioVal: null, showModal: true });
+    }
+
     if (counter < queries.length) {
-      const activeradioval = this.state.activeradioval;
-      let score = this.state.score;
 
       if (activeradioval === queries[counter].ans) {
         score = score + 50;
       }
 
-      this.setState({ counter: counter + 1, score: score });
+      this.setState({ counter: counter + 1, score: score, activeRadioVal: null });
     }
   }
 
@@ -68,9 +75,11 @@ class App extends React.Component {
           <InputComponent name="inputcomponent3" id="id3" optionval={queries[counter - 1].options[2]} isChecked={queries[counter - 1].options[2] === activeRadioVal} onChange={this.handleToggle} />
           <InputComponent name="inputcomponent4" id="id4" optionval={queries[counter - 1].options[3]} isChecked={queries[counter - 1].options[3] === activeRadioVal} onChange={this.handleToggle} />
           <hr />
-          <div className="d-flex justify-content-end"><button class="btn btn-primary submit-btn flex-end" type="submit" onClick={this.handleSubmit}>Submit</button></div>
+          <div className="d-flex justify-content-end">
+            <button class="btn btn-primary submit-btn flex-end" type="submit" onClick={this.handleSubmit} disabled={activeRadioVal == null}>Submit</button>
+          </div>
         </div>
-
+        {this.state.showModal && <div><MyReactModal /></div>}
       </div>
     );
   }
