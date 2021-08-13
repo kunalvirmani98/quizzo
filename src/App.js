@@ -41,7 +41,7 @@ class App extends React.Component {
     let score = this.state.score;
 
     if (counter === queries.length) {
-      this.setState({ counter: counter + 1, score: score, activeRadioVal: null, showModal: true });
+      this.setState({ score: score, activeRadioVal: null, showModal: true });
     }
 
     if (counter < queries.length) {
@@ -79,7 +79,7 @@ class App extends React.Component {
             <button class="btn btn-primary submit-btn flex-end" type="submit" onClick={this.handleSubmit} disabled={activeRadioVal == null}>Submit</button>
           </div>
         </div>
-        {this.state.showModal && <div><MyReactModal /></div>}
+        {this.state.showModal && <MyReactModal showModal={this.state.showModal} />}
       </div>
     );
   }
