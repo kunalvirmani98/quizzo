@@ -20,7 +20,7 @@ class App extends React.Component {
         },
       ],
       activeRadioVal: null,
-      counter: 1,
+      counter: 0,
       score: 0,
       showModal: false
     };
@@ -37,21 +37,27 @@ class App extends React.Component {
     e.preventDefault();
     const queries = this.state.queries;
     let counter = this.state.counter;
-    const activeradioval = this.state.activeradioval;
+    const activeRadioVal = this.state.activeRadioVal;
     let score = this.state.score;
 
-    if (counter === queries.length) {
-      this.setState({ score: score, activeRadioVal: null, showModal: true });
+    if (counter === queries.length - 1) {
+      if (activeRadioVal === queries[counter].ans) {
+        this.setState({ score: score + 50, showModal: true });
+      } else {
+        this.setState({ score: score, showModal: true });
+      }
     }
 
-    if (counter < queries.length) {
+    if (counter < queries.length && counter !== queries.length - 1) {
 
-      if (activeradioval === queries[counter].ans) {
+      if (activeRadioVal === queries[counter].ans) {
         score = score + 50;
       }
 
       this.setState({ counter: counter + 1, score: score, activeRadioVal: null });
     }
+
+
   }
 
   render() {
@@ -59,27 +65,28 @@ class App extends React.Component {
     const counter = this.state.counter;
     const queries = this.state.queries;
     return (
+
       <div className="m-2">
         <h1 className="display-1 text-center bg-dark py-4 text-white">quizzo</h1>
         <div className="body-container">
           <div className="d-flex justify-content-between">
-            <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>Question {this.state.counter} of {queries.length}</h2></div>
+            <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>Question {this.state.counter + 1} of {queries.length}</h2></div>
             <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>00:12:23</h2></div>
           </div>
-          <div className="question-box box-shadow-custom bg-secondary-custom "><h5>{queries[counter - 1].query}</h5></div>
+          <div className="question-box box-shadow-custom bg-secondary-custom "><h5>{queries[counter].query}</h5></div>
           <br />
           <h6>Please choose one of the following options</h6>
           <hr />
-          <InputComponent name="inputcomponent1" id="id1" optionval={queries[counter - 1].options[0]} isChecked={queries[counter - 1].options[0] === activeRadioVal} onChange={this.handleToggle} />
-          <InputComponent name="inputcomponent2" id="id2" optionval={queries[counter - 1].options[1]} isChecked={queries[counter - 1].options[1] === activeRadioVal} onChange={this.handleToggle} />
-          <InputComponent name="inputcomponent3" id="id3" optionval={queries[counter - 1].options[2]} isChecked={queries[counter - 1].options[2] === activeRadioVal} onChange={this.handleToggle} />
-          <InputComponent name="inputcomponent4" id="id4" optionval={queries[counter - 1].options[3]} isChecked={queries[counter - 1].options[3] === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent1" id="id1" optionval={queries[counter].options[0]} isChecked={queries[counter].options[0] === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent2" id="id2" optionval={queries[counter].options[1]} isChecked={queries[counter].options[1] === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent3" id="id3" optionval={queries[counter].options[2]} isChecked={queries[counter].options[2] === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent4" id="id4" optionval={queries[counter].options[3]} isChecked={queries[counter].options[3] === activeRadioVal} onChange={this.handleToggle} />
           <hr />
           <div className="d-flex justify-content-end">
             <button class="btn btn-primary submit-btn flex-end" type="submit" onClick={this.handleSubmit} disabled={activeRadioVal == null}>Submit</button>
           </div>
         </div>
-        {this.state.showModal && <MyReactModal showModal={this.state.showModal} />}
+        {this.state.showModal && <MyReactModal showModal={this.state.showModal} score={this.state.score} />}
       </div>
     );
   }

@@ -1,10 +1,16 @@
 import ReactModal from "react-modal";
 import React from "react";
 
+ReactModal.setAppElement("#root");
+
 export default class MyReactModal extends React.Component {
-    state = {
-        isOpen: this.props.showModal,
+    constructor(props) {
+        super(props);
+        this.state = {
+            isOpen: this.props.showModal,
+        }
     }
+
     customStyles = {
         content: {
             top: '50%',
@@ -26,12 +32,19 @@ export default class MyReactModal extends React.Component {
     }
 
     render() {
+        let score = this.props.score;
         return (
             <ReactModal
                 isOpen={this.state.isOpen}
                 style={this.customStyles}
-                ContentLabel={"Alert Message"}>
-                <button onClick={this.handleClose}>Close Modal</button>
+                ContentLabel={"Final Score"}
+            >
+                <h2 className="text-center">Your Final score is {score}</h2>
+                <button onClick={this.handleClose}
+                    className="btn btn-danger d-block"
+                    style={{ position: 'absolute', bottom: '10%', right: '5%' }}>
+                    Close
+                </button>
             </ReactModal>
         )
     }
