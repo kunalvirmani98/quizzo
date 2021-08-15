@@ -7,6 +7,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      queriesArray: [],
       queries: [
         {
           "query": "What is the name of India's National game?",
@@ -23,11 +24,31 @@ class App extends React.Component {
       counter: 0,
       score: 0,
       showModal: false,
-      gameOver: false
+      gameOver: false,
+      isLoaded: false
     };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleModalClose = this.handleModalClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    fetch("https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple")
+      .then(res => res.json())
+      .then((result) => {
+        this.setState({
+          isLoaded: true,
+          queriesArray: result
+        })
+      },
+        (error) => {
+          this.setState({ isLoaded: true, error })
+        }
+      )
+  }
+
+  componentDidUpdate() {
+    console.log(`queries length :: ${this.state.queriesArray.length}`);
   }
 
   handleToggle(e) {
