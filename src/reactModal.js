@@ -7,7 +7,6 @@ export default class MyReactModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            isOpen: this.props.showModal,
         }
     }
 
@@ -27,6 +26,10 @@ export default class MyReactModal extends React.Component {
         console.log("Modal mounted");
     }
 
+    // Also check componentWillMount()
+    /*  ComponentWillMount is called just before render method , therefore setState in this method will not trigger a re-render 
+    */
+
     handleClose = () => {
         this.setState({ isOpen: !this.state.isOpen })
     }
@@ -35,12 +38,11 @@ export default class MyReactModal extends React.Component {
         let score = this.props.score;
         return (
             <ReactModal
-                isOpen={this.state.isOpen}
+                isOpen={this.props.showModal}
                 style={this.customStyles}
-                ContentLabel={"Final Score"}
-            >
+                ContentLabel={"Final Score"}>
                 <h2 className="text-center">Your Final score is {score}</h2>
-                <button onClick={this.handleClose}
+                <button onClick={this.props.handleModalClose}
                     className="btn btn-danger d-block"
                     style={{ position: 'absolute', bottom: '10%', right: '5%' }}>
                     Close

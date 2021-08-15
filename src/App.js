@@ -22,15 +22,22 @@ class App extends React.Component {
       activeRadioVal: null,
       counter: 0,
       score: 0,
-      showModal: false
+      showModal: false,
+      gameOver: false
     };
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleModalClose = this.handleModalClose.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleToggle(e) {
     this.setState({ activeRadioVal: e.target.value })
     console.log(e.target.value);
+  }
+
+  handleModalClose(e) {
+    console.log("Modal close handler ");
+    this.setState({ showModal: !this.state.showModal });
   }
 
   handleSubmit(e) {
@@ -42,9 +49,9 @@ class App extends React.Component {
 
     if (counter === queries.length - 1) {
       if (activeRadioVal === queries[counter].ans) {
-        this.setState({ score: score + 50, showModal: true });
+        this.setState({ gameOver: true, score: score + 50, showModal: true });
       } else {
-        this.setState({ score: score, showModal: true });
+        this.setState({ gameOver: true, score: score, showModal: true });
       }
     }
 
@@ -56,7 +63,6 @@ class App extends React.Component {
 
       this.setState({ counter: counter + 1, score: score, activeRadioVal: null });
     }
-
 
   }
 
@@ -83,10 +89,10 @@ class App extends React.Component {
           <InputComponent name="inputcomponent4" id="id4" optionval={queries[counter].options[3]} isChecked={queries[counter].options[3] === activeRadioVal} onChange={this.handleToggle} />
           <hr />
           <div className="d-flex justify-content-end">
-            <button class="btn btn-primary submit-btn flex-end" type="submit" onClick={this.handleSubmit} disabled={activeRadioVal == null}>Submit</button>
+            <button class="btn btn-primary submit-btn flex-end" type="submit" onClick={this.handleSubmit} disabled={activeRadioVal == null || this.state.gameOver}>Submit</button>
           </div>
         </div>
-        {this.state.showModal && <MyReactModal showModal={this.state.showModal} score={this.state.score} />}
+        {this.state.showModal && <MyReactModal showModal={this.state.showModal} score={this.state.score} handleModalClose={this.handleModalClose} />}
       </div>
     );
   }
