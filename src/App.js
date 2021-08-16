@@ -10,14 +10,14 @@ class App extends React.Component {
       queriesArray: [],
       queries: [
         {
-          "query": "What is the name of India's National game?",
-          "options": ["Hockey", "Cricket", "Badminton", "Football"],
-          "ans": "Hockey"
+          "question": "What is the name of India's National game?",
+          "allOptions": ["Hockey", "Cricket", "Badminton", "Football"],
+          "correct_anwer": "Hockey"
         },
         {
-          "query": "What is the name of India's National bird?",
-          "options": ["Peacock", "Seagull", "Woodpecker", "Owl"],
-          "ans": "Peacock"
+          "question": "What is the name of India's National bird?",
+          "allOptions": ["Peacock", "Seagull", "Woodpecker", "Owl"],
+          "correct_answer": "Peacock"
         },
       ],
       activeRadioVal: null,
@@ -35,10 +35,13 @@ class App extends React.Component {
   componentDidMount() {
     fetch("https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple")
       .then(res => res.json())
-      .then((result) => {
+      .then((resp) => {
+        for (let i = 0; i < 10; i++) {
+          resp.results[i].allOptions = [...resp.results[i].incorrect_answers, resp.results[i].correct_answer]
+        }
         this.setState({
           isLoaded: true,
-          queriesArray: result
+          queries: resp.results
         })
       },
         (error) => {
@@ -48,7 +51,7 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    console.log(`queries length :: ${this.state.queriesArray.length}`);
+    this.state.queriesArray.forEach(query => console.log(query))
   }
 
   handleToggle(e) {
@@ -69,7 +72,7 @@ class App extends React.Component {
     let score = this.state.score;
 
     if (counter === queries.length - 1) {
-      if (activeRadioVal === queries[counter].ans) {
+      if (activeRadioVal === queries[counter].correct_answer) {
         this.setState({ gameOver: true, score: score + 50, showModal: true });
       } else {
         this.setState({ gameOver: true, score: score, showModal: true });
@@ -78,7 +81,7 @@ class App extends React.Component {
 
     if (counter < queries.length && counter !== queries.length - 1) {
 
-      if (activeRadioVal === queries[counter].ans) {
+      if (activeRadioVal === queries[counter].correct_answer) {
         score = score + 50;
       }
 
@@ -97,17 +100,17 @@ class App extends React.Component {
         <h1 className="display-1 text-center bg-dark py-4 text-white">quizzo</h1>
         <div className="body-container">
           <div className="d-flex justify-content-between">
-            <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>Question {this.state.counter + 1} of {queries.length}</h2></div>
+            <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>Question {this.state.counter + 1} of 10</h2></div>
             <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>00:12:23</h2></div>
           </div>
-          <div className="question-box box-shadow-custom bg-secondary-custom "><h5>{queries[counter].query}</h5></div>
+          <div className="question-box box-shadow-custom bg-secondary-custom "><h5>{queries[counter].question}</h5></div>
           <br />
           <h6>Please choose one of the following options</h6>
           <hr />
-          <InputComponent name="inputcomponent1" id="id1" optionval={queries[counter].options[0]} isChecked={queries[counter].options[0] === activeRadioVal} onChange={this.handleToggle} />
-          <InputComponent name="inputcomponent2" id="id2" optionval={queries[counter].options[1]} isChecked={queries[counter].options[1] === activeRadioVal} onChange={this.handleToggle} />
-          <InputComponent name="inputcomponent3" id="id3" optionval={queries[counter].options[2]} isChecked={queries[counter].options[2] === activeRadioVal} onChange={this.handleToggle} />
-          <InputComponent name="inputcomponent4" id="id4" optionval={queries[counter].options[3]} isChecked={queries[counter].options[3] === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent1" id="id1" optionval={queries[counter].allOptions[0]} isChecked={queries[counter].allOptions[0] === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent2" id="id2" optionval={queries[counter].allOptions[1]} isChecked={queries[counter].allOptions[1] === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent3" id="id3" optionval={queries[counter].allOptions[2]} isChecked={queries[counter].allOptions[2] === activeRadioVal} onChange={this.handleToggle} />
+          <InputComponent name="inputcomponent4" id="id4" optionval={queries[counter].allOptions[3]} isChecked={queries[counter].allOptions[3] === activeRadioVal} onChange={this.handleToggle} />
           <hr />
           <div className="d-flex justify-content-end">
             <button class="btn btn-primary submit-btn flex-end" type="submit" onClick={this.handleSubmit} disabled={activeRadioVal == null || this.state.gameOver}>Submit</button>
