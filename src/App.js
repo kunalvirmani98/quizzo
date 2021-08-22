@@ -14,13 +14,22 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      activePage: 'home'
     };
+    this.changeActivePage = this.changeActivePage.bind(this);
   }
 
   componentDidMount() {
   }
 
   componentDidUpdate() {
+    console.log(this.state.activePage);
+  }
+
+  changeActivePage(_page) {
+    this.setState(function (prevState, props) {
+      return { activePage: _page }
+    });
   }
 
   render() {
@@ -28,25 +37,25 @@ class App extends React.Component {
       <div className="m-2">
         <h1 className="display-1 text-center bg-dark py-4 text-white">quizzo</h1>
         <Router><ul class="nav nav-tabs">
-          <li class="nav-item">
-            <a class="nav-link active"><Link to="/">Home</Link></a>
+          <li className="nav-item">
+            <Link className={`nav-link ${this.state.activePage === "home" ? " active" : ""}`} to="/">Home</Link>
           </li>
-          <li class="nav-item">
-            <a class="nav-link"><Link to="/quiz">Quiz</Link></a>
+          <li className="nav-item">
+            <Link className={`nav-link ${this.state.activePage === "quiz" ? " active" : ""}`} to="/quiz">Quiz</Link>
           </li>
-          <li class="nav-item">
-            <a class="nav-link"><Link to="/about">About</Link></a>
+          <li className="nav-item">
+            <Link className={`nav-link ${this.state.activePage === "about" ? " active" : ""}`} to="/about">About</Link>
           </li>
         </ul>
           <Switch>
             <Route exact path="/">
-              <Home />
+              <Home changeActivePage={this.changeActivePage} />
             </Route>
-            <Route exact path="/quiz">
-              <Quiz />
+            <Route path="/quiz">
+              <Quiz changeActivePage={this.changeActivePage} />
             </Route>
-            <Route exact path="/about">
-              <About />
+            <Route path="/about">
+              <About changeActivePage={this.changeActivePage} />
             </Route>
           </Switch>
         </Router>

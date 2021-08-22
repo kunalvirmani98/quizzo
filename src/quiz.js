@@ -52,6 +52,8 @@ class Quiz extends React.Component {
                     this.setState({ isLoaded: true, error })
                 }
             )
+
+        this.props.changeActivePage('quiz');
     }
 
     componentDidUpdate() {
