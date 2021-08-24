@@ -102,7 +102,7 @@ class Quiz extends React.Component {
         const queries = this.state.queries;
         return (
 
-            <div className="body-container">
+            <div className="body-container border-custom">
                 <div className="d-flex justify-content-between">
                     <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>Question {this.state.counter + 1} of 10</h2></div>
                     <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>00:12:23</h2></div>
