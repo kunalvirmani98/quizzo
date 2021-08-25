@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import InputComponent from './inputComponent.js';
 import MyReactModal from './reactModal';
+import Timer from './timer.js';
 
 class Quiz extends React.Component {
     constructor(props) {
@@ -93,7 +94,6 @@ class Quiz extends React.Component {
 
             this.setState({ counter: counter + 1, score: score, activeRadioVal: null });
         }
-
     }
 
     render() {
@@ -105,7 +105,7 @@ class Quiz extends React.Component {
             <div className="body-container border-custom">
                 <div className="d-flex justify-content-between">
                     <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>Question {this.state.counter + 1} of 10</h2></div>
-                    <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>00:12:23</h2></div>
+                    <Timer />
                 </div>
                 <div className="question-box box-shadow-custom bg-secondary-custom "><h5>{queries[counter].question}</h5></div>
                 <br />
