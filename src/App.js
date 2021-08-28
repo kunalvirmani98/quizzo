@@ -14,7 +14,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      activePage: 'home'
+      activePage: 'home',
     };
     this.changeActivePage = this.changeActivePage.bind(this);
   }
@@ -34,19 +34,21 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="m-2">
-        <h1 className="display-1 text-center bg-dark py-4 text-white">quizzo</h1>
-        <Router><ul class="nav nav-tabs">
-          <li className="nav-item">
-            <Link className={`nav-link ${this.state.activePage === "home" ? " active" : ""}`} to="/">Home</Link>
-          </li>
-          <li className="nav-item">
-            <Link className={`nav-link ${this.state.activePage === "quiz" ? " active" : ""}`} to="/quiz">Quiz</Link>
-          </li>
-          <li className="nav-item">
-            <Link className={`nav-link ${this.state.activePage === "about" ? " active" : ""}`} to="/about">About</Link>
-          </li>
-        </ul>
+      <div>
+        <Router>
+          <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-5">
+            <Link to="/" className="navbar-brand">Quizzo</Link>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
+              <div className="navbar-nav">
+                <Link to="/" className={`nav-link ${this.state.activePage === "home" ? " active" : ""}`}>Home</Link>
+                <Link to="/quiz" className={`nav-link ${this.state.activePage === "quiz" ? " active" : ""}`}>Quiz</Link>
+                <Link to="/about" className={`nav-link ${this.state.activePage === "about" ? " active" : ""}`}>About</Link>
+              </div>
+            </div>
+          </nav>
           <Switch>
             <Route exact path="/">
               <Home changeActivePage={this.changeActivePage} />

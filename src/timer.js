@@ -8,24 +8,31 @@ class Timer extends React.Component {
                 mm: 1,
                 sec: 0,
             },
-            timerOn: true,
+            timerOn: false,
         };
         this.interval = null;
     }
 
     componentDidMount() {
-        if (this.state.timerOn) {
-            this.interval = setInterval(() => {
-                let __time = this.findMinuteAndSeconds(this.state._time);
-                // Uncaught Exception
-                if (__time != null) {
-                    this.setState({ _time: __time, timerOn: true });
-                }
-            }, 1000);
-        }
+        this.setState({ timerOn: true })
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
+        /*if (prevState.timerOn) {
+            this.interval = setInterval(() => {
+                let __time = this.findMinuteAndSeconds(prevState._time);
+                // Uncaught Exception
+                if (__time != null) {
+                    this.setState({ _time: __time });
+                } else {
+                    this.setState({ timerOn: false });
+                }
+            }, 1000);
+        }*/
+        console.log("componentDidUpdate called");
+        if (this.state.timerOn) {
+            this.setState({ timerOn: false });
+        }
     }
 
     findMinuteAndSeconds(_time) {

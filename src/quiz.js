@@ -26,7 +26,8 @@ class Quiz extends React.Component {
             score: 0,
             showModal: false,
             gameOver: false,
-            isLoaded: false
+            isLoaded: false,
+            timerOn: false,
         };
         this.handleToggle = this.handleToggle.bind(this);
         this.handleModalClose = this.handleModalClose.bind(this);
@@ -41,7 +42,8 @@ class Quiz extends React.Component {
                     resp.results[i].allOptions = [...resp.results[i].incorrect_answers, resp.results[i].correct_answer];
                     // resp.results[i].allOptions = [];
                     let formattedString = resp.results[i].question.replaceAll(/(&rdquo;)/g, '"');
-                    formattedString = resp.results[i].question.replaceAll(/(&quot;)/g, "'");
+                    formattedString = formattedString.replaceAll(/(&quot;)/g, "'");
+                    formattedString = formattedString.replaceAll(/(&#039;)/g, "'");
                     resp.results[i].question = formattedString;
                 }
                 this.setState({
@@ -71,6 +73,12 @@ class Quiz extends React.Component {
         this.setState({ showModal: !this.state.showModal });
     }
 
+    handleTimerOn(e) {
+        this.setState((prevState, prevProps) => {
+            return { timerOn: !prevState.timerOn }
+        });
+    }
+
     handleSubmit(e) {
         e.preventDefault();
         const queries = this.state.queries;
@@ -96,13 +104,13 @@ class Quiz extends React.Component {
         }
     }
 
+    // {/*<div className="body-container"><h1 className="text-center text-secondary">Loading ...</h1></div>*/ }
     render() {
         const activeRadioVal = this.state.activeRadioVal;
         const counter = this.state.counter;
         const queries = this.state.queries;
         return (
-
-            <div className="body-container border-custom">
+            <div className="body-container border-custom" >
                 <div className="d-flex justify-content-between">
                     <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>Question {this.state.counter + 1} of 10</h2></div>
                     <Timer />
@@ -120,7 +128,7 @@ class Quiz extends React.Component {
                     <button class="btn btn-primary submit-btn flex-end" type="submit" onClick={this.handleSubmit} disabled={activeRadioVal == null || this.state.gameOver}>Submit</button>
                 </div>
                 {this.state.showModal && <MyReactModal showModal={this.state.showModal} score={this.state.score} handleModalClose={this.handleModalClose} />}
-            </div>
+            </div >
 
         );
     }
