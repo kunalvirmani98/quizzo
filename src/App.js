@@ -9,6 +9,7 @@ import {
 import Home from './home';
 import Quiz from './quiz';
 import About from './about';
+import Login from './login';
 import userLogo from './cartoon-dev.jpg';
 
 class App extends React.Component {
@@ -49,7 +50,7 @@ class App extends React.Component {
                 <Link to="/about" className={`nav-link ${this.state.activePage === "about" ? " active" : ""}`}>About</Link>
               </div>
             </div>
-            <Link class="navbar-brand" to="/">
+            <Link class="navbar-brand" to="/login">
               <img src={userLogo} style={{ width: "30px", height: "30px", borderRadius: "50%" }} className="d-inline-block align-top mx-2" alt="" />
               User1
             </Link>
@@ -63,6 +64,9 @@ class App extends React.Component {
             </Route>
             <Route path="/about">
               <About changeActivePage={this.changeActivePage} />
+            </Route>
+            <Route path="/login">
+              <Login />
             </Route>
           </Switch>
         </Router>

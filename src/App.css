@@ -31,6 +31,14 @@
   padding: 10px 20px;
 }
 
+.login-page {
+  position: absolute;
+  top: 25%;
+  left: 40%;
+  width: 20%;
+  height: 50%;
+}
+
 .border-custom {
   border: 1px solid rgba(153, 152, 151, 0.5);
 }
