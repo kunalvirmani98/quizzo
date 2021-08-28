@@ -9,6 +9,7 @@ import {
 import Home from './home';
 import Quiz from './quiz';
 import About from './about';
+import userLogo from './cartoon-dev.jpg';
 
 class App extends React.Component {
   constructor(props) {
@@ -48,6 +49,10 @@ class App extends React.Component {
                 <Link to="/about" className={`nav-link ${this.state.activePage === "about" ? " active" : ""}`}>About</Link>
               </div>
             </div>
+            <Link class="navbar-brand" to="/">
+              <img src={userLogo} style={{ width: "30px", height: "30px", borderRadius: "50%" }} className="d-inline-block align-top mx-2" alt="" />
+              User1
+            </Link>
           </nav>
           <Switch>
             <Route exact path="/">
