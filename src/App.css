@@ -1,5 +1,53 @@
+body {
+  font-family: 'Prompt', sans-serif !important;
+  background: #001220 !important;
+  color: white !important;
+}
+
 .App {
   text-align: center;
+}
+
+section {
+  position: relative;
+  width: 100vw;
+  min-height: 400px;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.wave svg {
+  position: relative;
+  display: block;
+  width: calc(119% + 1.3px);
+  height: 300px;
+}
+
+.wave .shape-fill {
+  fill: #FFFFFF;
+}
+
+.spacer {
+  aspect-ratio: 900/150;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.layer1 {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  background-image: url('./waves-new.svg');
 }
 
 .App-logo {
