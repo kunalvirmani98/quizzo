@@ -43,6 +43,10 @@ section {
   background-size: cover;
 }
 
+.curved-corners {
+  border-radius: 25px;
+}
+
 .layer1 {
   position: absolute;
   bottom: 0px;

@@ -110,7 +110,7 @@ class Quiz extends React.Component {
         const counter = this.state.counter;
         const queries = this.state.queries;
         return (
-            <div className="body-container border-custom" >
+            <div className="body-container border-custom box-shadow-custom bg-white text-dark curved-corners" >
                 <div className="d-flex justify-content-between">
                     <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>Question {this.state.counter + 1} of 10</h2></div>
                     <Timer />
