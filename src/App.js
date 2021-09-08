@@ -50,9 +50,9 @@ class App extends React.Component {
                 <Link to="/about" className={`nav-link ${this.state.activePage === "about" ? " active" : ""}`}>About</Link>
               </div>
             </div>
-            <Link class="navbar-brand" to="/login">
+            <Link class="navbar-brand" to="#">
               <img src={userLogo} style={{ width: "30px", height: "30px", borderRadius: "50%" }} className="d-inline-block align-top mx-2" alt="" />
-              User1
+              {this.props.userName}
             </Link>
           </nav>
           <section>
@@ -70,9 +70,6 @@ class App extends React.Component {
               </Route>
               <Route path="/about">
                 <About changeActivePage={this.changeActivePage} />
-              </Route>
-              <Route path="/login">
-                <Login />
               </Route>
             </Switch>
           </section>
