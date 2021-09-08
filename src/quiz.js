@@ -44,11 +44,12 @@ class Quiz extends React.Component {
                     let formattedString = resp.results[i].question.replaceAll(/(&rdquo;)/g, '"');
                     formattedString = formattedString.replaceAll(/(&quot;)/g, "'");
                     formattedString = formattedString.replaceAll(/(&#039;)/g, "'");
+                    formattedString = formattedString.replaceAll(/(&shy;)/g, "");
                     resp.results[i].question = formattedString;
                 }
                 this.setState({
-                    isLoaded: true,
-                    queries: resp.results
+                    queries: resp.results,
+                    isLoaded: true
                 })
             },
                 (error) => {
@@ -110,26 +111,27 @@ class Quiz extends React.Component {
         const counter = this.state.counter;
         const queries = this.state.queries;
         return (
-            <div className="body-container border-custom box-shadow-custom bg-white text-dark curved-corners" >
-                <div className="d-flex justify-content-between">
-                    <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>Question {this.state.counter + 1} of 10</h2></div>
-                    <Timer />
-                </div>
-                <div className="question-box box-shadow-custom bg-secondary-custom "><h5>{queries[counter].question}</h5></div>
-                <br />
-                <h6>Please choose one of the following options</h6>
-                <hr />
-                <InputComponent name="inputcomponent1" id="id1" optionval={queries[counter].allOptions[0]} isChecked={queries[counter].allOptions[0] === activeRadioVal} onChange={this.handleToggle} />
-                <InputComponent name="inputcomponent2" id="id2" optionval={queries[counter].allOptions[1]} isChecked={queries[counter].allOptions[1] === activeRadioVal} onChange={this.handleToggle} />
-                <InputComponent name="inputcomponent3" id="id3" optionval={queries[counter].allOptions[2]} isChecked={queries[counter].allOptions[2] === activeRadioVal} onChange={this.handleToggle} />
-                <InputComponent name="inputcomponent4" id="id4" optionval={queries[counter].allOptions[3]} isChecked={queries[counter].allOptions[3] === activeRadioVal} onChange={this.handleToggle} />
-                <hr />
-                <div className="d-flex justify-content-end">
-                    <button class="btn btn-primary submit-btn flex-end" type="submit" onClick={this.handleSubmit} disabled={activeRadioVal == null || this.state.gameOver}>Submit</button>
-                </div>
-                {this.state.showModal && <MyReactModal showModal={this.state.showModal} score={this.state.score} handleModalClose={this.handleModalClose} />}
-            </div >
-
+            <div className="body-container">
+                {this.state.isLoaded ? (<div className="border-custom box-shadow-custom bg-white text-dark curved-corners p-5 mt-5" >
+                    <div className="d-flex justify-content-between">
+                        <div className="bg-secondary-custom text-center px-2 box-shadow-custom"><h2>Question {this.state.counter + 1} of 10</h2></div>
+                        <Timer />
+                    </div>
+                    <div className="question-box box-shadow-custom bg-secondary-custom "><h5>{queries[counter].question}</h5></div>
+                    <br />
+                    <h6>Please choose one of the following options</h6>
+                    <hr />
+                    <InputComponent name="inputcomponent1" id="id1" optionval={queries[counter].allOptions[0]} isChecked={queries[counter].allOptions[0] === activeRadioVal} onChange={this.handleToggle} />
+                    <InputComponent name="inputcomponent2" id="id2" optionval={queries[counter].allOptions[1]} isChecked={queries[counter].allOptions[1] === activeRadioVal} onChange={this.handleToggle} />
+                    <InputComponent name="inputcomponent3" id="id3" optionval={queries[counter].allOptions[2]} isChecked={queries[counter].allOptions[2] === activeRadioVal} onChange={this.handleToggle} />
+                    <InputComponent name="inputcomponent4" id="id4" optionval={queries[counter].allOptions[3]} isChecked={queries[counter].allOptions[3] === activeRadioVal} onChange={this.handleToggle} />
+                    <hr />
+                    <div className="d-flex justify-content-end">
+                        <button class="btn btn-primary-custom submit-btn flex-end" type="submit" onClick={this.handleSubmit} disabled={activeRadioVal == null || this.state.gameOver}>Submit</button>
+                    </div>
+                    {this.state.showModal && <MyReactModal showModal={this.state.showModal} score={this.state.score} handleModalClose={this.handleModalClose} />}
+                </div>) : <h3 className="display-6 text-center">Loading...</h3>}
+            </div>
         );
     }
 }

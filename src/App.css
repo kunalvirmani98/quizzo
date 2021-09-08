@@ -8,6 +8,20 @@ body {
   text-align: center;
 }
 
+.btn-primary-custom {
+  color: #fff !important;
+  background-color: #e1734f !important;
+}
+
+.btn-primary-custom:hover {
+  background-color: #db4c1c !important;
+  border-color: #db4c1c !important;
+}
+
+.text-primary-custom {
+  color: #e1734f !important;
+}
+
 section {
   position: relative;
   width: 100vw;

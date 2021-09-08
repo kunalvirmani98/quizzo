@@ -39,7 +39,7 @@ class App extends React.Component {
       <div>
         <Router>
           <nav className="navbar navbar-dark navbar-expand-lg px-5">
-            <Link to="/" className="navbar-brand">Quizzo</Link>
+            <Link to="/" className="navbar-brand text-primary-custom">Quizzo</Link>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
