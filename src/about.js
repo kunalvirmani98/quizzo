@@ -18,7 +18,7 @@ class About extends React.Component {
                             Software Developer and open to new opportunities
                         </h5>
                     </div>
-                    <img src={devLogo} className="box-shadow-custom" style={{ width: "450px", height: "450px", borderRadius: "50%" }} alt="logo" />
+                    <img src={devLogo} className="box-shadow-custom m-5" style={{ width: "450px", height: "450px", borderRadius: "50%" }} alt="logo" />
                 </div>
             </div>
         )

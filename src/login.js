@@ -34,23 +34,24 @@ class Login extends React.Component {
         return (
             <>
                 <section>
-                    <div className="login-page box-shadow-custom p-3">
+                    <div className="login-page box-shadow-custom curved-corners p-5 bg-gray">
                         <h1 className="text-center text-primary-custom">Quizzo</h1>
                         <hr></hr>
                         <br />
                         <form onSubmit={this.handleSubmit}>
                             <div className="form-group">
-                                <label htmlFor="exampleInput1">Username</label>
+                                <label htmlFor="exampleInput1" className="text-dark">Username</label>
                                 <input type="text" className="form-control" id="exampleInput1" onChange={(e) => { this.handleChange("username", e) }} required />
                                 {!this.state.isComplete && <span className="text-danger small">Please fill out this field</span>}
                             </div>
                             <br />
                             <div class="form-group">
-                                <label htmlFor="exampleInputPassword">Password</label>
+                                <label htmlFor="exampleInputPassword" className="text-dark">Password</label>
                                 <input type="password" className="form-control" id="exampleInputPassword" onChange={(e) => { this.handleChange("password", e) }} />
                             </div>
                             <br />
-                            <div className="d-flex justify-content-center"><button type="submit" className={`btn btn-dark ${this.state.isComplete ? "" : " disabled"}`} >Sign in</button></div>
+                            <br />
+                            <div className="d-flex justify-content-center"><button type="submit" className={`btn btn-primary-custom ${this.state.isComplete ? "" : " disabled"}`} >Sign in</button></div>
                         </form>
                     </div>
                 </section>
